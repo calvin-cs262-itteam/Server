@@ -14,9 +14,9 @@ var config = require('./config'),
 
     path = require('path'),
 
-    connection = mongoose.connect(config.database, {useMongoClient: true}),
+    connection = mongoose.connect(config.database),
 
-    easyeats = require('./models/EasyEats');
+    easyeats = require('./models/database');
 
 
 /* Manage size limits for POST/PUT requests */
