@@ -14,7 +14,7 @@ var config = require('./config'),
 
     path = require('path'),
 
-    connection = mongoose.connect(config.database),
+    connection = mongoose.connect(config.database, {useNewUrlParser: true}),
 
     easyeats = require('./models/database');
 
