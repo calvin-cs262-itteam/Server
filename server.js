@@ -16,13 +16,13 @@ var config = require('./config'),
 
     connection = mongoose.connect(config.database, {useNewUrlParser: true}),
 
-    easyeats = require('./models/database');
+    RecipeSchema = require('./models/Recipe');
 
 
-/* Manage size limits for POST/PUT requests */
+/* Manage size limits for POST/PUT requests 
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-
+*/
 /* Manage CORS Access for ALL requests/responses */
 app.use(function(req, res, next)
 {
@@ -37,9 +37,9 @@ app.use(function(req, res, next)
     next();
 });
 
-apiRouter.get('/EasyEats', function(req, res){
-    database.find({ displayed: true}, (err, recs) =>
-    {
+apiRouter.get('/Recipes', function(req, res){
+    RecipeSchema.find({ displayed: true}, (err, recs) =>
+    {w
         if (err){
             console.dir(err);
         }   
@@ -47,11 +47,11 @@ apiRouter.get('/EasyEats', function(req, res){
     });
 });
 
-apiRouter.post('/EasyEats', function(req, res){
+apiRouter.post('/Recipes', function(req, res){
     var name = req.body.name,
     description = req.body.description;
 
-    database.create({name: name,
+    RecipeSchema.create({name: name,
             description: description},
         function (err, small)
     {if (err){
@@ -63,8 +63,8 @@ apiRouter.post('/EasyEats', function(req, res){
 
 });
 
-apiRouter.put('/EasyEats/:recipeID', function(req, res){
-    database.findById({
+apiRouter.put('/Recipes/:recipeID', function(req, res){
+    RecipeSchema.findById({
         _id: req.params.recordID}, (err, recs) =>
         {
             if(err){
@@ -85,8 +85,8 @@ apiRouter.put('/EasyEats/:recipeID', function(req, res){
 
 });
 
-apiRouter.delete('/EasyEats/:recipeID', function(req, res){
-    database.findByIdAndRemove({_id: req.params.recordID}, (err, recs) =>
+apiRouter.delete('/Recipes/:recipeID', function(req, res){
+    RecipeSchema.findByIdAndRemove({_id: req.params.recordID}, (err, recs) =>
     {
         if (err)
         {
